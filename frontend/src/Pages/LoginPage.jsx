@@ -56,7 +56,7 @@ const LoginPage = () => {
               <div className='card-body row p-5'>
                 <div className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
                   <img
-                    src='/assets/avatar-DIE1AEpS.jpg'
+                    src='/avatar.jpg'
                     className='rounded-circle'
                     alt='Войти'
                   />
