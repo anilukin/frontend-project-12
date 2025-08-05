@@ -27,11 +27,12 @@ const LoginPage = () => {
           const { username, token } = response.data;
           dispatcher(
             setCredentials({
-              user: username,
+              username,
               token,
             })
           );
           localStorage.setItem('token', token);
+          localStorage.setItem('username', username);
           navigate('/');
         } else {
           setAuthFailed(true);
