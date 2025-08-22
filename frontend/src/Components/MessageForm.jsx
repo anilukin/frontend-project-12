@@ -1,13 +1,10 @@
 import { useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
-import { addMessage } from '../Slices/messagesSlice';
 import { getAuthHeader } from '../utils/getAuthHeader';
 
 const MessageForm = ({ channelId, username }) => {
-  const dispatcher = useDispatch();
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -23,10 +20,9 @@ const MessageForm = ({ channelId, username }) => {
         channelId,
         username,
       };
-      const response = await axios.post('/api/v1/messages', newMessage, {
+      await axios.post('/api/v1/messages', newMessage, {
         headers: getAuthHeader(),
       });
-      dispatcher(addMessage(response.data));
       formik.resetForm();
       inputRef.current.focus();
     },

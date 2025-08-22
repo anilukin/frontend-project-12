@@ -1,8 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Message from './Message';
 import MessageForm from './MessageForm';
+import socket from '../utils/socket';
+import { addMessage } from '../Slices/messagesSlice';
 
 const Messages = ({ selectedChannelId }) => {
+  const dispatch = useDispatch();
   const currentChannel = useSelector((state) =>
     state.channels.channels.find((ch) => ch.id === selectedChannelId)
   );
@@ -12,6 +16,17 @@ const Messages = ({ selectedChannelId }) => {
     )
   );
   const username = useSelector((state) => state.auth.username);
+
+  useEffect(() => {
+    const handleNewMessage = (message) => {
+      dispatch(addMessage(message));
+    };
+    socket.on('newMessage', handleNewMessage);
+
+    return () => {
+      socket.off('newMessage', handleNewMessage);
+    };
+  }, [dispatch]);
 
   return (
     <div className='col p-0 h-100'>
