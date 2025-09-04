@@ -4,7 +4,7 @@ import Message from './Message';
 import MessageForm from './MessageForm';
 import socket from '../utils/socket';
 import { addMessage } from '../Slices/messagesSlice';
-import { messagesSliceAdapter } from '../Slices/messagesSlice';
+import { selectChannelMessages } from '../Slices/messagesSlice';
 
 const Messages = ({ selectedChannelId }) => {
   const dispatch = useDispatch();
@@ -12,8 +12,7 @@ const Messages = ({ selectedChannelId }) => {
     state.channels.channels.find((ch) => ch.id === selectedChannelId)
   );
 
-  const allMessages = useSelector((state) => messagesSliceAdapter.getSelectors().selectAll(state.messages));
-  const channelMessages = allMessages.filter((message) => message.channelId === selectedChannelId);
+  const channelMessages = useSelector((state) => selectChannelMessages(state, selectedChannelId));
   
   const username = useSelector((state) => state.auth.username);
 

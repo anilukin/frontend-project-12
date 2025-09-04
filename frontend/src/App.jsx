@@ -1,31 +1,60 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials } from './Slices/authSlice';
 import MainPage from './Pages/MainPage';
 import LoginPage from './Pages/LoginPage';
 import NotFoundPage from './Pages/NotFoundPage';
+import SignupPage from './Pages/SignupPage';
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { token, username } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
-    if (token && username) {
-      dispatch(setCredentials({ username, token }));
+    const storedToken = localStorage.getItem('token');
+    const storedUsername = localStorage.getItem('username');
+    if (storedToken && storedUsername) {
+      dispatch(
+        setCredentials({ username: storedUsername, token: storedToken })
+      );
     }
   }, [dispatch]);
-  
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    dispatch(setCredentials({ username: null, token: null }));
+    navigate('/login');
+  };
+
   return (
-    <BrowserRouter>
+    <div className='d-flex flex-column h-100'>
+      <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
+        <div className='container'>
+          <Link to='/' className='navbar-brand'>
+            Hexlet Chat
+          </Link>
+          {token && username ? (
+            <button
+              type='button'
+              className='btn btn-primary'
+              onClick={handleLogout}
+            >
+              Выйти
+            </button>
+          ) : null}
+        </div>
+      </nav>
       <Routes>
         <Route index element={<MainPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='*' element={<NotFoundPage />} />
+        <Route path='/signup' element={<SignupPage />} />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 };
 

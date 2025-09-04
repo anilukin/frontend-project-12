@@ -12,27 +12,44 @@ const MainPage = () => {
   const navigate = useNavigate();
   const dispatcher = useDispatch();
   const [channelId, setChannel] = useState('');
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchContent = async () => {
-      const responseChannels = await axios.get('/api/v1/channels', {
-        headers: getAuthHeader(),
-      });
-      const channels = responseChannels.data;
-      dispatcher(setChannels(channels));
-      setChannel(channels[0].id);
+      try {
+        const responseChannels = await axios.get('/api/v1/channels', {
+          headers: getAuthHeader(),
+        });
+        const channels = responseChannels.data;
+        dispatcher(setChannels(channels));
+        setChannel(channels[0].id);
 
-      const responseMessages = await axios.get('/api/v1/messages', {
-        headers: getAuthHeader(),
-      });
-      const messages = responseMessages.data;
-      dispatcher(setMessages(messages));
+        const responseMessages = await axios.get('/api/v1/messages', {
+          headers: getAuthHeader(),
+        });
+        const messages = responseMessages.data;
+        dispatcher(setMessages(messages));
+      } catch (err) {
+        if (err.isAxiosError && err.response.status === 401) {
+          localStorage.removeItem('token');
+          navigate('/login');
+        } else {
+          setError('Ошибка загрузки данных');
+        }
+      }
     };
-    fetchContent();
+
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
+    } else {
+      fetchContent();
     }
   }, [navigate]);
+
+  if (error) {
+    return <div className='alert alert-danger'>{error}</div>;
+  }
 
   return (
     <div className='d-flex flex-column h-100'>
