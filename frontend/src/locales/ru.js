@@ -1,0 +1,58 @@
+export default {
+  translation: {
+    header: {
+      appName: 'Hexlet Chat',
+    },
+    notFoundPage: {
+      notFoundPageTitle: '404',
+      notFoundTitle: 'Похоже, что вы потерялись',
+      notFoundDescription: 'страница, которую вы ищете, недоступна!',
+      goHome: 'Вернуться на главную',
+    },
+    loginPage: {
+      loginPageTitle: 'Войти',
+      userName: 'Ваш ник',
+      password: 'Пароль',
+      noAccount: 'Нет аккаунта?',
+      goSignup: 'Регистрация',
+    },
+    signupPage: {
+      signupPageTitle: 'Регистрация',
+      newUserName: 'Имя пользователя',
+      newUserPassword: 'Пароль',
+      confirmNewUserPassword: 'Подтвердите пароль',
+    },
+    channels: {
+      channelsTitle: 'Каналы',
+      addChannelModalTitle: 'Добавить канал',
+      channelName: 'Имя канала',
+      removeChannelModalTitle: 'Удалить канал',
+      confirmationModalDescription: 'Уверены?',
+      renameChannelModalTitle: 'Переименовать канал',
+    },
+    messages: {
+      message_one: '{{count}} cообщение',
+      message_few: '{{count}} сообщения',
+      message_many: '{{count}} сообщений',
+      inputPlaceholder: 'Введите сообщение...',
+    },
+    buttons: {
+      loginButton: 'Войти',
+      logoutButton: 'Выйти',
+      sendButton: 'Отправить',
+      resetButton: 'Отменить',
+      registrationButton: 'Зарегистрироваться',
+      removeButton: 'Удалить',
+      renameButton: 'Переименовать',
+    },
+    errorMessages: {
+      loginError: 'Неверные имя пользователя или пароль',
+      userExistError: 'Такой пользователь уже существует',
+      lengthRangeError: 'От 3 до 20 символов',
+      minLengthError: 'Не менее 6 символов',
+      uniqueNameError: 'Должно быть уникальным',
+      requiredFieldError: 'Обязательное поле',
+      passwordsMustMatchError: 'Пароли должны совпадать',
+    },
+  },
+};

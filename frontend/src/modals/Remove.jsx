@@ -1,9 +1,11 @@
 import { useFormik } from 'formik';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 import { getAuthHeader } from '../utils/getAuthHeader';
 
 const Remove = ({ show, onClose, onRemove, channel }) => {
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: { id: channel.id, name: channel.name },
     onSubmit: async () => {
@@ -17,17 +19,17 @@ const Remove = ({ show, onClose, onRemove, channel }) => {
   return (
     <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('channels.removeChannelModalTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          <p className='lead'>Уверены?</p>
+          <p className='lead'>{t('channels.confirmationModalDescription')}</p>
           <div className='d-flex justify-content-end'>
             <Button variant='secondary' className='me-2' onClick={onClose}>
-              Отменить
+              {t('buttons.resetButton')}
             </Button>
             <Button variant='danger' type='submit'>
-              Удалить
+              {t('buttons.removeButton')}
             </Button>
           </div>
         </form>

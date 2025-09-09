@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import {
   Modal,
   FormGroup,
@@ -13,6 +14,7 @@ import validationSchema from '../utils/channelValidationSchema';
 import { getAuthHeader } from '../utils/getAuthHeader';
 
 const Rename = ({ show, onClose, onRename, channel }) => {
+  const { t } = useTranslation();
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -24,7 +26,7 @@ const Rename = ({ show, onClose, onRename, channel }) => {
 
   const formik = useFormik({
     initialValues: { id: channel.id, name: channel.name },
-    validationSchema: validationSchema(channelNames),
+    validationSchema: validationSchema(channelNames, t),
     onSubmit: async (values) => {
       const editedChannel = { name: values.name.trim() };
       const response = await axios.patch(
@@ -41,7 +43,7 @@ const Rename = ({ show, onClose, onRename, channel }) => {
   return (
     <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('channels.renameChannelModalTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -56,7 +58,7 @@ const Rename = ({ show, onClose, onRename, channel }) => {
               isInvalid={formik.touched.name && !!formik.errors.name}
             />
             <FormLabel className='visually-hidden' htmlFor='name'>
-              Имя канала
+              {t('channels.channelName')}
             </FormLabel>
             {formik.touched.name && formik.errors.name && (
               <div className='invalid-feedback'>{formik.errors.name}</div>
@@ -64,14 +66,14 @@ const Rename = ({ show, onClose, onRename, channel }) => {
           </FormGroup>
           <div className='d-flex justify-content-end'>
             <Button variant='secondary' className='me-2' onClick={onClose}>
-              Отменить
+              {t('buttons.resetButton')}
             </Button>
             <Button
               variant='primary'
               type='submit'
               disabled={formik.isSubmitting}
             >
-              Отправить
+              {t('buttons.sendButton')}
             </Button>
           </div>
         </form>

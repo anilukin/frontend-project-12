@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { setCredentials } from '../Slices/authSlice';
 import validationSchema from '../utils/registerValidationSchema';
 
 const SignupPage = () => {
   const dispatcher = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -21,12 +23,15 @@ const SignupPage = () => {
       password: '',
       confirmPassword: '',
     },
-    validationSchema: validationSchema(),
+    validationSchema: validationSchema(t),
     onSubmit: async (values) => {
       setRegistrationFailed(false);
       try {
         const { username, password } = values;
-        const response = await axios.post('/api/v1/signup', { username, password });
+        const response = await axios.post('/api/v1/signup', {
+          username,
+          password,
+        });
         if (response.status === 201) {
           const { username, token } = response.data;
           dispatcher(
@@ -64,14 +69,14 @@ const SignupPage = () => {
                   <img
                     src='/avatar_1.jpg'
                     className='rounded-circle'
-                    alt='Регистрация'
+                    alt={t('signupPage.signupPageTitle')}
                   />
                 </div>
                 <Form
                   onSubmit={formik.handleSubmit}
                   className='col-12 col-md-6 mt-3 mt-md-0'
                 >
-                  <h1 className='text-center mb-4'>Регистрация</h1>
+                  <h1 className='text-center mb-4'>{t('signupPage.signupPageTitle')}</h1>
                   <fieldset>
                     <Form.Group className='form-floating mb-3'>
                       <Form.Control
@@ -85,18 +90,20 @@ const SignupPage = () => {
                         id='username'
                         autoComplete='username'
                         isInvalid={
-                          (formik.touched.username && !!formik.errors.username) ||
+                          (formik.touched.username &&
+                            !!formik.errors.username) ||
                           registrationFailed
                         }
                         required
                         ref={inputRef}
                       />
                       <Form.Label htmlFor='username'>
-                        Имя пользователя
+                        {t('signupPage.newUserName')}
                       </Form.Label>
                       <Form.Control.Feedback type='invalid'>
                         {formik.errors.username ||
-                          (registrationFailed && 'Такой пользователь уже существует')}
+                          (registrationFailed &&
+                            t('errorMessages.userExistError'))}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className='form-floating mb-4'>
@@ -112,12 +119,13 @@ const SignupPage = () => {
                         id='password'
                         autoComplete='current-password'
                         isInvalid={
-                          (formik.touched.password && !!formik.errors.password) ||
+                          (formik.touched.password &&
+                            !!formik.errors.password) ||
                           registrationFailed
                         }
                         required
                       />
-                      <Form.Label htmlFor='password'>Пароль</Form.Label>
+                      <Form.Label htmlFor='password'>{t('signupPage.newUserPassword')}</Form.Label>
                       <Form.Control.Feedback type='invalid'>
                         {formik.errors.password}
                       </Form.Control.Feedback>
@@ -142,7 +150,7 @@ const SignupPage = () => {
                         required
                       />
                       <Form.Label htmlFor='confirmPassword'>
-                        Подтвердите пароль
+                        {t('signupPage.confirmNewUserPassword')}
                       </Form.Label>
                       <Form.Control.Feedback type='invalid'>
                         {formik.errors.confirmPassword}
@@ -153,7 +161,7 @@ const SignupPage = () => {
                       type='submit'
                       variant='outline-primary'
                     >
-                      Зарегистрироваться
+                      {t('buttons.registrationButton')}
                     </Button>
                   </fieldset>
                 </Form>

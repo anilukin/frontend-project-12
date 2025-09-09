@@ -1,19 +1,23 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import socket from '../utils/socket';
 import Message from './Message';
 import MessageForm from './MessageForm';
-import socket from '../utils/socket';
 import { addMessage } from '../Slices/messagesSlice';
 import { selectChannelMessages } from '../Slices/messagesSlice';
 
 const Messages = ({ selectedChannelId }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const currentChannel = useSelector((state) =>
     state.channels.channels.find((ch) => ch.id === selectedChannelId)
   );
 
-  const channelMessages = useSelector((state) => selectChannelMessages(state, selectedChannelId));
-  
+  const channelMessages = useSelector((state) =>
+    selectChannelMessages(state, selectedChannelId)
+  );
+
   const username = useSelector((state) => state.auth.username);
 
   useEffect(() => {
@@ -34,7 +38,9 @@ const Messages = ({ selectedChannelId }) => {
           <p className='m-0'>
             {currentChannel && <b>{`# ${currentChannel.name}`}</b>}
           </p>
-          <span className='text-muted'>{`${channelMessages.length} сообщений`}</span>
+          <span className='text-muted'>
+            {t('messages.message', { count: channelMessages.length })}
+          </span>
         </div>
         <div className='chat-messages overflow-auto px-5'>
           {channelMessages.map((message) => (

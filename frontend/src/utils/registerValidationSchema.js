@@ -1,18 +1,18 @@
 import * as Yup from 'yup';
 
-const validationSchema = () => {
+const validationSchema = (t) => {
   return Yup.object().shape({
     username: Yup.string()
       .transform((value) => value.trim())
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .required('Обязательное поле'),
+      .min(3, t('errorMessages.lengthRangeError'))
+      .max(20, t('errorMessages.lengthRangeError'))
+      .required(t('errorMessages.requiredFieldError')),
     password: Yup.string()
       .transform((value) => value.trim())
-      .min(6, 'Не менее 6 символов'),
+      .min(6, t('errorMessages.minLengthError')),
     confirmPassword: Yup.string()
-      .required('Обязательное поле')
-      .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
+      .required(t('errorMessages.requiredFieldError'))
+      .oneOf([Yup.ref('password'), null], t('errorMessages.passwordsMustMatchError')),
   });
 };
 

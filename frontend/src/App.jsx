@@ -2,6 +2,8 @@ import './App.css';
 import { Routes, Route, useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Button } from 'react-bootstrap';
 import { setCredentials } from './Slices/authSlice';
 import MainPage from './Pages/MainPage';
 import LoginPage from './Pages/LoginPage';
@@ -12,6 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token, username } = useSelector((state) => state.auth);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -35,16 +38,17 @@ const App = () => {
       <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
         <div className='container'>
           <Link to='/' className='navbar-brand'>
-            Hexlet Chat
+            {t('header.appName')}
           </Link>
           {token && username ? (
-            <button
-              type='button'
+            <Button
               className='btn btn-primary'
+              type='submit'
+              variant='btn-primary'
               onClick={handleLogout}
             >
-              Выйти
-            </button>
+              {t('buttons.logoutButton')}
+            </Button>
           ) : null}
         </div>
       </nav>

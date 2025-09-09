@@ -1,4 +1,5 @@
 import { ButtonGroup, Button, Dropdown, DropdownButton } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const ChannelButton = ({ channel, selectedChannelId, handleClick }) => (
   <Button
@@ -18,6 +19,7 @@ const Channel = ({
   handleRename,
   handleRemove,
 }) => {
+  const { t } = useTranslation();
   return channel.removable ? (
     <li className='nav-item w-100'>
       <ButtonGroup className='d-flex dropdown btn-group'>
@@ -31,10 +33,10 @@ const Channel = ({
           variant={channel.id === selectedChannelId ? 'secondary' : null}
         >
           <Dropdown.Item eventKey='1' onClick={() => handleRemove(channel)}>
-            Удалить
+            {t('buttons.removeButton')}
           </Dropdown.Item>
           <Dropdown.Item eventKey='2' onClick={() => handleRename(channel)}>
-            Переименовать
+            {t('buttons.renameButton')}
           </Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>

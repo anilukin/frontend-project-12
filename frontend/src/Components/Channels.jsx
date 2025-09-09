@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import Button from 'react-bootstrap/Button';
 import Channel from './Channel';
@@ -8,6 +9,7 @@ import { removeChannel, setChannels } from '../Slices/channelsSlice.js';
 
 const Channels = ({ selectedChannelId, handleClick }) => {
   const dispatcher = useDispatch();
+  const { t } = useTranslation();
   const channels = useSelector((state) => state.channels.channels);
   const [modal, setModal] = useState({ name: null, channelName: null });
   const Modal = modal ? getModal(modal.name) : null;
@@ -36,7 +38,7 @@ const Channels = ({ selectedChannelId, handleClick }) => {
     dispatcher(setChannels(updatedChannels));
     dispatcher(removeChannel(channel.id));
     if (selectedChannelId === channel.id) {
-      handleClick(channels[0].id)
+      handleClick(channels[0].id);
     }
     handleClose();
   };
@@ -45,7 +47,7 @@ const Channels = ({ selectedChannelId, handleClick }) => {
     <>
       <div className='col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex'>
         <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
-          <b>Каналы</b>
+          <b>{t('channels.channelsTitle')}</b>
           <Button
             variant='outline-light'
             className='p-0 text-primary btn-group-vertical'

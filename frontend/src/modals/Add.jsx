@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import {
   Modal,
   FormGroup,
@@ -13,6 +14,7 @@ import validationSchema from '../utils/channelValidationSchema';
 import { getAuthHeader } from '../utils/getAuthHeader';
 
 const Add = ({ show, onClose, onAdd }) => {
+  const { t } = useTranslation();
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -24,7 +26,7 @@ const Add = ({ show, onClose, onAdd }) => {
 
   const formik = useFormik({
     initialValues: { id: '', name: '' },
-    validationSchema: validationSchema(channelNames),
+    validationSchema: validationSchema(channelNames, t),
     onSubmit: async (values) => {
       const newChannel = {
         name: values.name.trim(),
@@ -39,7 +41,7 @@ const Add = ({ show, onClose, onAdd }) => {
   return (
     <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('channels.addChannelModalTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -54,7 +56,7 @@ const Add = ({ show, onClose, onAdd }) => {
               isInvalid={formik.touched.name && !!formik.errors.name}
             />
             <FormLabel className='visually-hidden' htmlFor='name'>
-              Имя канала
+              {t('channels.channelName')}
             </FormLabel>
             {formik.touched.name && formik.errors.name && (
               <div className='invalid-feedback'>{formik.errors.name}</div>
@@ -62,14 +64,14 @@ const Add = ({ show, onClose, onAdd }) => {
           </FormGroup>
           <div className='d-flex justify-content-end'>
             <Button variant='secondary' className='me-2' onClick={onClose}>
-              Отменить
+              {t('buttons.resetButton')}
             </Button>
             <Button
               variant='primary'
               type='submit'
               disabled={formik.isSubmitting}
             >
-              Отправить
+              {t('buttons.sendButton')}
             </Button>
           </div>
         </form>

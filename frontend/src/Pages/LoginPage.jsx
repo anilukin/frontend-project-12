@@ -4,11 +4,13 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { setCredentials } from '../Slices/authSlice';
 
 const LoginPage = () => {
   const dispatcher = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -59,14 +61,14 @@ const LoginPage = () => {
                   <img
                     src='/avatar.jpg'
                     className='rounded-circle'
-                    alt='Войти'
+                    alt={t('loginPage.login')}
                   />
                 </div>
                 <Form
                   onSubmit={formik.handleSubmit}
                   className='col-12 col-md-6 mt-3 mt-md-0'
                 >
-                  <h1 className='text-center mb-4'>Войти</h1>
+                  <h1 className='text-center mb-4'>{t('loginPage.loginPageTitle')}</h1>
                   <fieldset>
                     <Form.Group className='form-floating mb-3'>
                       <Form.Control
@@ -80,7 +82,7 @@ const LoginPage = () => {
                         required
                         ref={inputRef}
                       />
-                      <Form.Label htmlFor='username'>Ваш ник</Form.Label>
+                      <Form.Label htmlFor='username'>{t('loginPage.userName')}</Form.Label>
                     </Form.Group>
                     <Form.Group className='form-floating mb-4'>
                       <Form.Control
@@ -94,9 +96,9 @@ const LoginPage = () => {
                         isInvalid={authFailed}
                         required
                       />
-                      <Form.Label htmlFor='password'>Пароль</Form.Label>
+                      <Form.Label htmlFor='password'>{t('loginPage.password')}</Form.Label>
                       <Form.Control.Feedback type='invalid'>
-                        Неверные имя пользователя или пароль
+                        {t('errorMessages.loginError')}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Button
@@ -104,13 +106,15 @@ const LoginPage = () => {
                       type='submit'
                       variant='outline-primary'
                     >
-                      Войти
+                      {t('buttons.loginButton')}
                     </Button>
                   </fieldset>
                 </Form>
               </div>
               <div className='card-footer p-4'>
-                <div className='text-center'><span>Нет аккаунта?</span> <a href='/signup'>Регистрация</a></div>
+                <div className='text-center'>
+                  <span>{t('loginPage.noAccount')}</span> <a href='/signup'>{t('loginPage.goSignup')}</a>
+                </div>
               </div>
             </div>
           </div>
