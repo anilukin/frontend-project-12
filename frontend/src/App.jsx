@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import { setCredentials } from './Slices/authSlice';
 import MainPage from './Pages/MainPage';
 import LoginPage from './Pages/LoginPage';
@@ -58,6 +59,7 @@ const App = () => {
         <Route path='*' element={<NotFoundPage />} />
         <Route path='/signup' element={<SignupPage />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 };

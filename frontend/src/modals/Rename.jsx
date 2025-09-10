@@ -10,6 +10,7 @@ import {
   Button,
   FormLabel,
 } from 'react-bootstrap';
+import { notify } from '../utils/notify';
 import validationSchema from '../utils/channelValidationSchema';
 import { getAuthHeader } from '../utils/getAuthHeader';
 
@@ -28,15 +29,24 @@ const Rename = ({ show, onClose, onRename, channel }) => {
     initialValues: { id: channel.id, name: channel.name },
     validationSchema: validationSchema(channelNames, t),
     onSubmit: async (values) => {
-      const editedChannel = { name: values.name.trim() };
-      const response = await axios.patch(
-        `/api/v1/channels/${channel.id}`,
-        editedChannel,
-        {
-          headers: getAuthHeader(),
+      try {
+        const editedChannel = { name: values.name.trim() };
+        const response = await axios.patch(
+          `/api/v1/channels/${channel.id}`,
+          editedChannel,
+          {
+            headers: getAuthHeader(),
+          }
+        );
+        onRename(response.data);
+        notify(t('infoMessages.renamedChannel'));
+      } catch (err) {
+        if (err.isAxiosError && err.response) {
+          notify(t('infoMessages.dataLoadError'), 'error');
+        } else if (err.isAxiosError && !err.response) {
+          notify(t('infoMessages.networkError'), 'error');
         }
-      );
-      onRename(response.data);
+      }
     },
   });
 

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { notify } from '../utils/notify';
 import { setChannels } from '../Slices/channelsSlice';
 import { setMessages } from '../Slices/messagesSlice';
 import Channels from '../Components/Channels';
@@ -10,6 +12,7 @@ import { getAuthHeader } from '../utils/getAuthHeader';
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const dispatcher = useDispatch();
   const [channelId, setChannel] = useState('');
   const [error, setError] = useState(null);
@@ -30,11 +33,15 @@ const MainPage = () => {
         const messages = responseMessages.data;
         dispatcher(setMessages(messages));
       } catch (err) {
-        if (err.isAxiosError && err.response.status === 401) {
+        if (err.isAxiosError && err.response && err.response.status === 401) {
           localStorage.removeItem('token');
           navigate('/login');
-        } else {
-          setError('Ошибка загрузки данных');
+        } else if (err.isAxiosError && err.response) {
+          setError(t('infoMessages.dataLoadError'));
+          notify(t('infoMessages.dataLoadError'), 'error');
+        } else if (err.isAxiosError && !err.response) {
+          setError(t('infoMessages.networkError'));
+          notify(t('infoMessages.networkError'), 'error');
         }
       }
     };

@@ -103,7 +103,7 @@ const SignupPage = () => {
                       <Form.Control.Feedback type='invalid'>
                         {formik.errors.username ||
                           (registrationFailed &&
-                            t('errorMessages.userExistError'))}
+                            t('infoMessages.userExistError'))}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className='form-floating mb-4'>

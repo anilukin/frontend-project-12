@@ -4,15 +4,15 @@ const validationSchema = (t) => {
   return Yup.object().shape({
     username: Yup.string()
       .transform((value) => value.trim())
-      .min(3, t('errorMessages.lengthRangeError'))
-      .max(20, t('errorMessages.lengthRangeError'))
-      .required(t('errorMessages.requiredFieldError')),
+      .min(3, t('infoMessages.lengthRangeError'))
+      .max(20, t('infoMessages.lengthRangeError'))
+      .required(t('infoMessages.requiredFieldError')),
     password: Yup.string()
       .transform((value) => value.trim())
-      .min(6, t('errorMessages.minLengthError')),
+      .min(6, t('infoMessages.minLengthError')),
     confirmPassword: Yup.string()
-      .required(t('errorMessages.requiredFieldError'))
-      .oneOf([Yup.ref('password'), null], t('errorMessages.passwordsMustMatchError')),
+      .required(t('infoMessages.requiredFieldError'))
+      .oneOf([Yup.ref('password'), null], t('infoMessages.passwordsMustMatchError')),
   });
 };
 

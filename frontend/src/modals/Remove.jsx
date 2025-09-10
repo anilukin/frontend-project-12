@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
+import { notify } from '../utils/notify';
 import { getAuthHeader } from '../utils/getAuthHeader';
 
 const Remove = ({ show, onClose, onRemove, channel }) => {
@@ -9,10 +10,19 @@ const Remove = ({ show, onClose, onRemove, channel }) => {
   const formik = useFormik({
     initialValues: { id: channel.id, name: channel.name },
     onSubmit: async () => {
-      const response = await axios.delete(`/api/v1/channels/${channel.id}`, {
-        headers: getAuthHeader(),
-      });
-      onRemove(response.data);
+      try {
+        const response = await axios.delete(`/api/v1/channels/${channel.id}`, {
+          headers: getAuthHeader(),
+        });
+        onRemove(response.data);
+        notify(t('infoMessages.removedChannel'));
+      } catch (err) {
+        if (err.isAxiosError && err.response) {
+          notify(t('infoMessages.dataLoadError'), 'error');
+        } else if (err.isAxiosError && !err.response) {
+          notify(t('infoMessages.networkError'), 'error');
+        }
+      }
     },
   });
 

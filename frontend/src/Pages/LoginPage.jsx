@@ -98,7 +98,7 @@ const LoginPage = () => {
                       />
                       <Form.Label htmlFor='password'>{t('loginPage.password')}</Form.Label>
                       <Form.Control.Feedback type='invalid'>
-                        {t('errorMessages.loginError')}
+                        {t('infoMessages.loginError')}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Button

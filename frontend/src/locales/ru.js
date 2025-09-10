@@ -45,7 +45,7 @@ export default {
       removeButton: 'Удалить',
       renameButton: 'Переименовать',
     },
-    errorMessages: {
+    infoMessages: {
       loginError: 'Неверные имя пользователя или пароль',
       userExistError: 'Такой пользователь уже существует',
       lengthRangeError: 'От 3 до 20 символов',
@@ -53,6 +53,11 @@ export default {
       uniqueNameError: 'Должно быть уникальным',
       requiredFieldError: 'Обязательное поле',
       passwordsMustMatchError: 'Пароли должны совпадать',
+      dataLoadError: 'Ошибка загрузки данных',
+      networkError: 'Ошибка сети',
+      addedChannel: 'Канал создан',
+      renamedChannel: 'Канал переименован',
+      removedChannel: 'Канал удален',
     },
   },
 };
