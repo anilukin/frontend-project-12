@@ -10,6 +10,7 @@ import {
   Button,
   FormLabel,
 } from 'react-bootstrap';
+import * as filter from 'leo-profanity';
 import { notify } from '../utils/notify';
 import validationSchema from '../utils/channelValidationSchema';
 import { getAuthHeader } from '../utils/getAuthHeader';
@@ -19,6 +20,7 @@ const Add = ({ show, onClose, onAdd }) => {
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
+    filter.add(filter.getDictionary('ru'));
   }, []);
 
   const channelNames = useSelector((state) => state.channels.channels).map(
@@ -31,7 +33,7 @@ const Add = ({ show, onClose, onAdd }) => {
     onSubmit: async (values) => {
       try {
         const newChannel = {
-          name: values.name.trim(),
+          name: filter.clean(values.name.trim()),
         };
         const response = await axios.post('/api/v1/channels', newChannel, {
           headers: getAuthHeader(),

@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
+import * as filter from 'leo-profanity';
 import { getAuthHeader } from '../utils/getAuthHeader';
 
 const MessageForm = ({ channelId, username }) => {
@@ -10,6 +11,7 @@ const MessageForm = ({ channelId, username }) => {
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
+    filter.add(filter.getDictionary('ru'));
   }, []);
 
   const formik = useFormik({
@@ -18,7 +20,7 @@ const MessageForm = ({ channelId, username }) => {
     },
     onSubmit: async (values) => {
       const newMessage = {
-        body: values.body,
+        body: filter.clean(values.body),
         channelId,
         username,
       };

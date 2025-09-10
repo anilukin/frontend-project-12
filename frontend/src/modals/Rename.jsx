@@ -10,6 +10,7 @@ import {
   Button,
   FormLabel,
 } from 'react-bootstrap';
+import * as filter from 'leo-profanity';
 import { notify } from '../utils/notify';
 import validationSchema from '../utils/channelValidationSchema';
 import { getAuthHeader } from '../utils/getAuthHeader';
@@ -19,6 +20,7 @@ const Rename = ({ show, onClose, onRename, channel }) => {
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
+    filter.add(filter.getDictionary('ru'));
   }, []);
 
   const channelNames = useSelector((state) => state.channels.channels).map(
@@ -30,7 +32,7 @@ const Rename = ({ show, onClose, onRename, channel }) => {
     validationSchema: validationSchema(channelNames, t),
     onSubmit: async (values) => {
       try {
-        const editedChannel = { name: values.name.trim() };
+        const editedChannel = { name: filter.clean(values.name.trim()) };
         const response = await axios.patch(
           `/api/v1/channels/${channel.id}`,
           editedChannel,
