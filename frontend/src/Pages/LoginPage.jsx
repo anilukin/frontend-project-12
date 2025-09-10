@@ -61,7 +61,7 @@ const LoginPage = () => {
                   <img
                     src='/avatar.jpg'
                     className='rounded-circle'
-                    alt={t('loginPage.login')}
+                    alt={t('loginPage.loginPageTitle')}
                   />
                 </div>
                 <Form
