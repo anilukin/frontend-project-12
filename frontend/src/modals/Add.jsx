@@ -41,10 +41,12 @@ const Add = ({ show, onClose, onAdd }) => {
         })
         onAdd(response.data)
         notify(t('infoMessages.addedChannel'))
-      } catch (err) {
+      }
+      catch (err) {
         if (err.isAxiosError && err.response) {
           notify(t('infoMessages.dataLoadError'), 'error')
-        } else if (err.isAxiosError && !err.response) {
+        }
+        else if (err.isAxiosError && !err.response) {
           notify(t('infoMessages.networkError'), 'error')
         }
       }

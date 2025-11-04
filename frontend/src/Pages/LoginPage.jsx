@@ -37,10 +37,12 @@ const LoginPage = () => {
           localStorage.setItem('token', token)
           localStorage.setItem('username', username)
           navigate('/')
-        } else {
+        }
+        else {
           setAuthFailed(true)
         }
-      } catch (err) {
+      }
+      catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true)
           inputRef.current.select()

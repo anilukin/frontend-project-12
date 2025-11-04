@@ -44,10 +44,12 @@ const SignupPage = () => {
           localStorage.setItem('token', token)
           localStorage.setItem('username', username)
           navigate('/')
-        } else {
+        }
+        else {
           setRegistrationFailed(true)
         }
-      } catch (err) {
+      }
+      catch (err) {
         if (err.isAxiosError) {
           if (err.response.status === 409) {
             setRegistrationFailed(true)

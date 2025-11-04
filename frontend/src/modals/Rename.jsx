@@ -43,10 +43,12 @@ const Rename = ({ show, onClose, onRename, channel }) => {
         )
         onRename(response.data)
         notify(t('infoMessages.renamedChannel'))
-      } catch (err) {
+      }
+      catch (err) {
         if (err.isAxiosError && err.response) {
           notify(t('infoMessages.dataLoadError'), 'error')
-        } else if (err.isAxiosError && !err.response) {
+        }
+        else if (err.isAxiosError && !err.response) {
           notify(t('infoMessages.networkError'), 'error')
         }
       }

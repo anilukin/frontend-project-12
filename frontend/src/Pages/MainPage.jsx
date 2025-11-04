@@ -33,14 +33,17 @@ const MainPage = () => {
         })
         const messages = responseMessages.data
         dispatcher(setMessages(messages))
-      } catch (err) {
+      }
+      catch (err) {
         if (err.isAxiosError && err.response && err.response.status === 401) {
           localStorage.removeItem('token')
           navigate('/login')
-        } else if (err.isAxiosError && err.response) {
+        }
+        else if (err.isAxiosError && err.response) {
           setError(t('infoMessages.dataLoadError'))
           notify(t('infoMessages.dataLoadError'), 'error')
-        } else if (err.isAxiosError && !err.response) {
+        }
+        else if (err.isAxiosError && !err.response) {
           setError(t('infoMessages.networkError'))
           notify(t('infoMessages.networkError'), 'error')
         }
@@ -50,7 +53,8 @@ const MainPage = () => {
     const token = localStorage.getItem('token')
     if (!token) {
       navigate('/login')
-    } else {
+    }
+    else {
       fetchContent()
     }
   }, [navigate, dispatcher, t])
