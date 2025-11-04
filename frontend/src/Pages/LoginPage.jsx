@@ -1,55 +1,55 @@
-import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import { Button, Form } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { setCredentials } from '../Slices/authSlice';
-import routes from '../utils/routes';
+import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useFormik } from 'formik'
+import axios from 'axios'
+import { Button, Form } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import { setCredentials } from '../Slices/authSlice'
+import routes from '../utils/routes'
 
 const LoginPage = () => {
-  const dispatcher = useDispatch();
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const inputRef = useRef();
+  const dispatcher = useDispatch()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const inputRef = useRef()
   useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-  const [authFailed, setAuthFailed] = useState(false);
+    inputRef.current.focus()
+  }, [])
+  const [authFailed, setAuthFailed] = useState(false)
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
     onSubmit: async (values) => {
-      setAuthFailed(false);
+      setAuthFailed(false)
       try {
-        const response = await axios.post(routes.loginPath(), values);
+        const response = await axios.post(routes.loginPath(), values)
         if (response.status === 200) {
-          const { username, token } = response.data;
+          const { username, token } = response.data
           dispatcher(
             setCredentials({
               username,
               token,
             })
-          );
-          localStorage.setItem('token', token);
-          localStorage.setItem('username', username);
-          navigate('/');
+          )
+          localStorage.setItem('token', token)
+          localStorage.setItem('username', username)
+          navigate('/')
         } else {
-          setAuthFailed(true);
+          setAuthFailed(true)
         }
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
-          setAuthFailed(true);
-          inputRef.current.select();
-          return;
+          setAuthFailed(true)
+          inputRef.current.select()
+          return
         }
-        throw err;
+        throw err
       }
     },
-  });
+  })
 
   return (
     <div className='d-flex flex-column h-100'>
@@ -122,7 +122,7 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

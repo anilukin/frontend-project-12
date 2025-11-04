@@ -4,6 +4,6 @@ const routes = {
   channelsPath: () => '/api/v1/channels',
   channelPath: (id) => `/api/v1/channels/${id}`,
   messagesPath: () => '/api/v1/messages',
-};
+}
 
-export default routes;
+export default routes

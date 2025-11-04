@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const NotFoundPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <section className='page_404'>
       <div className='container'>
@@ -24,7 +24,7 @@ const NotFoundPage = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default NotFoundPage;
+export default NotFoundPage

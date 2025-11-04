@@ -1,6 +1,6 @@
-import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import ru from './locales/ru.js';
+import i18next from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import ru from './locales/ru.js'
 
 i18next
   .use(initReactI18next)
@@ -11,6 +11,6 @@ i18next
     resources: {
       ru,
     },
-  });
+  })
 
-export default i18next;
+export default i18next

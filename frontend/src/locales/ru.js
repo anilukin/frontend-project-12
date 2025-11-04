@@ -63,4 +63,4 @@ export default {
       removedChannel: 'Канал удалён',
     },
   },
-};
+}

@@ -1,57 +1,57 @@
-import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
+import { useFormik } from 'formik'
+import axios from 'axios'
+import { useTranslation } from 'react-i18next'
 import {
   Modal,
   FormGroup,
   FormControl,
   Button,
   FormLabel,
-} from 'react-bootstrap';
-import * as filter from 'leo-profanity';
-import { notify } from '../utils/notify';
-import validationSchema from '../utils/channelValidationSchema';
-import { getAuthHeader } from '../utils/getAuthHeader';
-import routes from '../utils/routes';
+} from 'react-bootstrap'
+import * as filter from 'leo-profanity'
+import { notify } from '../utils/notify'
+import validationSchema from '../utils/channelValidationSchema'
+import { getAuthHeader } from '../utils/getAuthHeader'
+import routes from '../utils/routes'
 
 const Rename = ({ show, onClose, onRename, channel }) => {
-  const { t } = useTranslation();
-  const inputRef = useRef();
+  const { t } = useTranslation()
+  const inputRef = useRef()
   useEffect(() => {
-    inputRef.current.focus();
-    filter.add(filter.getDictionary('ru'));
-  }, []);
+    inputRef.current.focus()
+    filter.add(filter.getDictionary('ru'))
+  }, [])
 
   const channelNames = useSelector((state) => state.channels.channels).map(
     (ch) => ch.name.trim()
-  );
+  )
 
   const formik = useFormik({
     initialValues: { id: channel.id, name: channel.name },
     validationSchema: validationSchema(channelNames, t),
     onSubmit: async (values) => {
       try {
-        const editedChannel = { name: filter.clean(values.name.trim()) };
+        const editedChannel = { name: filter.clean(values.name.trim()) }
         const response = await axios.patch(
           routes.channelPath(channel.id),
           editedChannel,
           {
             headers: getAuthHeader(),
           }
-        );
-        onRename(response.data);
-        notify(t('infoMessages.renamedChannel'));
+        )
+        onRename(response.data)
+        notify(t('infoMessages.renamedChannel'))
       } catch (err) {
         if (err.isAxiosError && err.response) {
-          notify(t('infoMessages.dataLoadError'), 'error');
+          notify(t('infoMessages.dataLoadError'), 'error')
         } else if (err.isAxiosError && !err.response) {
-          notify(t('infoMessages.networkError'), 'error');
+          notify(t('infoMessages.networkError'), 'error')
         }
       }
     },
-  });
+  })
 
   return (
     <Modal show={show} onHide={onClose} centered>
@@ -92,6 +92,6 @@ const Rename = ({ show, onClose, onRename, channel }) => {
         </form>
       </Modal.Body>
     </Modal>
-  );
-};
-export default Rename;
+  )
+}
+export default Rename

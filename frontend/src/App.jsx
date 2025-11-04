@@ -1,38 +1,38 @@
-import './App.css';
-import { Routes, Route, useNavigate, Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button } from 'react-bootstrap';
-import { ToastContainer } from 'react-toastify';
-import { setCredentials } from './Slices/authSlice';
-import MainPage from './Pages/MainPage';
-import LoginPage from './Pages/LoginPage';
-import NotFoundPage from './Pages/NotFoundPage';
-import SignupPage from './Pages/SignupPage';
+import './App.css'
+import { Routes, Route, useNavigate, Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { Button } from 'react-bootstrap'
+import { ToastContainer } from 'react-toastify'
+import { setCredentials } from './Slices/authSlice'
+import MainPage from './Pages/MainPage'
+import LoginPage from './Pages/LoginPage'
+import NotFoundPage from './Pages/NotFoundPage'
+import SignupPage from './Pages/SignupPage'
 
 const App = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { token, username } = useSelector((state) => state.auth);
-  const { t } = useTranslation();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { token, username } = useSelector(state => state.auth)
+  const { t } = useTranslation()
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    const storedUsername = localStorage.getItem('username');
+    const storedToken = localStorage.getItem('token')
+    const storedUsername = localStorage.getItem('username')
     if (storedToken && storedUsername) {
       dispatch(
         setCredentials({ username: storedUsername, token: storedToken })
-      );
+      )
     }
-  }, [dispatch]);
+  }, [dispatch])
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    dispatch(setCredentials({ username: null, token: null }));
-    navigate('/login');
-  };
+    localStorage.removeItem('token')
+    localStorage.removeItem('username')
+    dispatch(setCredentials({ username: null, token: null }))
+    navigate('/login')
+  }
 
   return (
     <div className='d-flex flex-column h-100'>
@@ -61,7 +61,7 @@ const App = () => {
       </Routes>
       <ToastContainer />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

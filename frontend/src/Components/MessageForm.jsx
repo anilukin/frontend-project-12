@@ -1,19 +1,19 @@
-import { useRef, useEffect } from 'react';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import { useTranslation } from 'react-i18next';
-import { Button, Form } from 'react-bootstrap';
-import * as filter from 'leo-profanity';
-import { getAuthHeader } from '../utils/getAuthHeader';
-import routes from '../utils/routes';
+import { useRef, useEffect } from 'react'
+import { useFormik } from 'formik'
+import axios from 'axios'
+import { useTranslation } from 'react-i18next'
+import { Button, Form } from 'react-bootstrap'
+import * as filter from 'leo-profanity'
+import { getAuthHeader } from '../utils/getAuthHeader'
+import routes from '../utils/routes'
 
 const MessageForm = ({ channelId, username }) => {
-  const { t } = useTranslation();
-  const inputRef = useRef();
+  const { t } = useTranslation()
+  const inputRef = useRef()
   useEffect(() => {
-    inputRef.current.focus();
-    filter.add(filter.getDictionary('ru'));
-  }, []);
+    inputRef.current.focus()
+    filter.add(filter.getDictionary('ru'))
+  }, [])
 
   const formik = useFormik({
     initialValues: {
@@ -24,14 +24,14 @@ const MessageForm = ({ channelId, username }) => {
         body: filter.clean(values.body),
         channelId,
         username,
-      };
+      }
       await axios.post(routes.messagesPath(), newMessage, {
         headers: getAuthHeader(),
-      });
-      formik.resetForm();
-      inputRef.current.focus();
+      })
+      formik.resetForm()
+      inputRef.current.focus()
     },
-  });
+  })
   return (
     <Form onSubmit={formik.handleSubmit} className='py-1 border rounded-2'>
       <Form.Group className='input-group has-validation'>
@@ -64,7 +64,7 @@ const MessageForm = ({ channelId, username }) => {
         </Button>
       </Form.Group>
     </Form>
-  );
-};
+  )
+}
 
-export default MessageForm;
+export default MessageForm

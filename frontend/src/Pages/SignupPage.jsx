@@ -1,23 +1,23 @@
-import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useFormik } from 'formik';
-import axios from 'axios';
-import { Button, Form } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { setCredentials } from '../Slices/authSlice';
-import validationSchema from '../utils/registerValidationSchema';
-import routes from '../utils/routes';
+import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useFormik } from 'formik'
+import axios from 'axios'
+import { Button, Form } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import { setCredentials } from '../Slices/authSlice'
+import validationSchema from '../utils/registerValidationSchema'
+import routes from '../utils/routes'
 
 const SignupPage = () => {
-  const dispatcher = useDispatch();
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const inputRef = useRef();
+  const dispatcher = useDispatch()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const inputRef = useRef()
   useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-  const [registrationFailed, setRegistrationFailed] = useState(false);
+    inputRef.current.focus()
+  }, [])
+  const [registrationFailed, setRegistrationFailed] = useState(false)
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -26,39 +26,39 @@ const SignupPage = () => {
     },
     validationSchema: validationSchema(t),
     onSubmit: async (values) => {
-      setRegistrationFailed(false);
+      setRegistrationFailed(false)
       try {
-        const { username, password } = values;
+        const { username, password } = values
         const response = await axios.post(routes.signupPath(), {
           username,
           password,
-        });
+        })
         if (response.status === 201) {
-          const { username, token } = response.data;
+          const { username, token } = response.data
           dispatcher(
             setCredentials({
               username,
               token,
             })
-          );
-          localStorage.setItem('token', token);
-          localStorage.setItem('username', username);
-          navigate('/');
+          )
+          localStorage.setItem('token', token)
+          localStorage.setItem('username', username)
+          navigate('/')
         } else {
-          setRegistrationFailed(true);
+          setRegistrationFailed(true)
         }
       } catch (err) {
         if (err.isAxiosError) {
           if (err.response.status === 409) {
-            setRegistrationFailed(true);
-            inputRef.current.select();
-            return;
+            setRegistrationFailed(true)
+            inputRef.current.select()
+            return
           }
         }
-        throw err;
+        throw err
       }
     },
-  });
+  })
   return (
     <div className='d-flex flex-column h-100'>
       <div className='container-fluid h-100'>
@@ -82,8 +82,8 @@ const SignupPage = () => {
                     <Form.Group className='form-floating mb-3'>
                       <Form.Control
                         onChange={(e) => {
-                          setRegistrationFailed(false);
-                          formik.handleChange(e);
+                          setRegistrationFailed(false)
+                          formik.handleChange(e)
                         }}
                         value={formik.values.username}
                         placeholder='username'
@@ -111,8 +111,8 @@ const SignupPage = () => {
                       <Form.Control
                         type='password'
                         onChange={(e) => {
-                          setRegistrationFailed(false);
-                          formik.handleChange(e);
+                          setRegistrationFailed(false)
+                          formik.handleChange(e)
                         }}
                         value={formik.values.password}
                         placeholder='password'
@@ -135,8 +135,8 @@ const SignupPage = () => {
                       <Form.Control
                         type='password'
                         onChange={(e) => {
-                          setRegistrationFailed(false);
-                          formik.handleChange(e);
+                          setRegistrationFailed(false)
+                          formik.handleChange(e)
                         }}
                         value={formik.values.confirmPassword}
                         placeholder='confirmPassword'
@@ -172,7 +172,7 @@ const SignupPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignupPage;
+export default SignupPage

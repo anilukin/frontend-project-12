@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import * as Yup from 'yup'
 
 const validationSchema = (t) => {
   return Yup.object().shape({
@@ -13,7 +13,7 @@ const validationSchema = (t) => {
     confirmPassword: Yup.string()
       .required(t('infoMessages.requiredFieldError'))
       .oneOf([Yup.ref('password'), null], t('infoMessages.passwordsMustMatchError')),
-  });
-};
+  })
+}
 
-export default validationSchema;
+export default validationSchema

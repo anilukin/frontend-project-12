@@ -1,4 +1,4 @@
-const env = import.meta.env;
+const env = import.meta.env
 
 const rollbarConfig = {
   accessToken: env.VITE_ROLLBAR_TOKEN,
@@ -7,6 +7,6 @@ const rollbarConfig = {
   },
   captureUncaught: true,
   captureUnhandledRejections: true,
-};
+}
 
-export default rollbarConfig;
+export default rollbarConfig

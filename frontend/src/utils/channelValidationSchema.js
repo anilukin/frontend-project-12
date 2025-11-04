@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import * as Yup from 'yup'
 
 const validationSchema = (channelNames, t) => {
   return Yup.object().shape({
@@ -8,7 +8,7 @@ const validationSchema = (channelNames, t) => {
       .max(20, t('infoMessages.lengthRangeError'))
       .notOneOf(channelNames, t('infoMessages.uniqueNameError'))
       .required(t('infoMessages.requiredFieldError')),
-  });
-};
+  })
+}
 
-export default validationSchema;
+export default validationSchema

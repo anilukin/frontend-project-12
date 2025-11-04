@@ -1,5 +1,5 @@
-import { ButtonGroup, Button, Dropdown, DropdownButton } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { ButtonGroup, Button, Dropdown, DropdownButton } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 const ChannelButton = ({ channel, selectedChannelId, handleClick }) => (
   <Button
@@ -10,7 +10,7 @@ const ChannelButton = ({ channel, selectedChannelId, handleClick }) => (
     <span className='me-1'>#</span>
     {channel.name}
   </Button>
-);
+)
 
 const Channel = ({
   channel,
@@ -19,7 +19,7 @@ const Channel = ({
   handleRename,
   handleRemove,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return channel.removable ? (
     <li className='nav-item w-100'>
       <Dropdown
@@ -60,7 +60,7 @@ const Channel = ({
       selectedChannelId={selectedChannelId}
       handleClick={handleClick}
     />
-  );
-};
+  )
+}
 
-export default Channel;
+export default Channel

@@ -1,47 +1,47 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
-import Button from 'react-bootstrap/Button';
-import Channel from './Channel';
-import getModal from '../modals/index.js';
-import { removeChannel, setChannels } from '../Slices/channelsSlice.js';
+import Button from 'react-bootstrap/Button'
+import Channel from './Channel'
+import getModal from '../modals/index.js'
+import { removeChannel, setChannels } from '../Slices/channelsSlice.js'
 
 const Channels = ({ selectedChannelId, handleClick }) => {
-  const dispatcher = useDispatch();
-  const { t } = useTranslation();
-  const channels = useSelector((state) => state.channels.channels);
-  const [modal, setModal] = useState({ name: null, channelName: null });
-  const Modal = modal ? getModal(modal.name) : null;
+  const dispatcher = useDispatch()
+  const { t } = useTranslation()
+  const channels = useSelector((state) => state.channels.channels)
+  const [modal, setModal] = useState({ name: null, channelName: null })
+  const Modal = modal ? getModal(modal.name) : null
 
-  const handleAdd = () => setModal({ name: 'adding', channel: null });
-  const handleRename = (channel) => setModal({ name: 'renaming', channel });
-  const handleRemove = (channel) => setModal({ name: 'removing', channel });
-  const handleClose = () => setModal({ name: null, channel: null });
+  const handleAdd = () => setModal({ name: 'adding', channel: null })
+  const handleRename = (channel) => setModal({ name: 'renaming', channel })
+  const handleRemove = (channel) => setModal({ name: 'removing', channel })
+  const handleClose = () => setModal({ name: null, channel: null })
 
   const handleAddChannel = (newChannel) => {
-    dispatcher(setChannels([...channels, newChannel]));
-    handleClick(newChannel.id);
-    handleClose();
-  };
+    dispatcher(setChannels([...channels, newChannel]))
+    handleClick(newChannel.id)
+    handleClose()
+  }
 
   const handleRenameChannel = (channel) => {
     const updatedChannels = channels.map((ch) =>
       ch.id === channel.id ? { ...ch, name: channel.name } : ch
-    );
-    dispatcher(setChannels(updatedChannels));
-    handleClose();
-  };
+    )
+    dispatcher(setChannels(updatedChannels))
+    handleClose()
+  }
 
   const handleRemoveChannel = (channel) => {
-    const updatedChannels = channels.filter((ch) => ch.id !== channel.id);
-    dispatcher(setChannels(updatedChannels));
-    dispatcher(removeChannel(channel.id));
+    const updatedChannels = channels.filter((ch) => ch.id !== channel.id)
+    dispatcher(setChannels(updatedChannels))
+    dispatcher(removeChannel(channel.id))
     if (selectedChannelId === channel.id) {
-      handleClick(channels[0].id);
+      handleClick(channels[0].id)
     }
-    handleClose();
-  };
+    handleClose()
+  }
 
   return (
     <>
@@ -92,7 +92,7 @@ const Channels = ({ selectedChannelId, handleClick }) => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default Channels;
+export default Channels
