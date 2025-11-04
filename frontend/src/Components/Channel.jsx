@@ -22,24 +22,37 @@ const Channel = ({
   const { t } = useTranslation();
   return channel.removable ? (
     <li className='nav-item w-100'>
-      <ButtonGroup className='d-flex dropdown btn-group'>
+      <Dropdown
+        as={ButtonGroup}
+        variant={channel.id === selectedChannelId ? 'secondary' : null}
+        className='d-flex'
+      >
         <ChannelButton
           channel={channel}
           selectedChannelId={selectedChannelId}
           handleClick={handleClick}
         />
-        <DropdownButton
-          as={ButtonGroup}
+
+        <Dropdown.Toggle
           variant={channel.id === selectedChannelId ? 'secondary' : null}
+          aria-expanded='false'
+          className='flex-grow-0'
+          split
         >
+          <span class='visually-hidden'>
+            {t('buttons.manageChannelButton')}
+          </span>
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
           <Dropdown.Item eventKey='1' onClick={() => handleRemove(channel)}>
             {t('buttons.removeButton')}
           </Dropdown.Item>
           <Dropdown.Item eventKey='2' onClick={() => handleRename(channel)}>
             {t('buttons.renameButton')}
           </Dropdown.Item>
-        </DropdownButton>
-      </ButtonGroup>
+        </Dropdown.Menu>
+      </Dropdown>
     </li>
   ) : (
     <ChannelButton

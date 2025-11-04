@@ -44,6 +44,8 @@ export default {
       registrationButton: 'Зарегистрироваться',
       removeButton: 'Удалить',
       renameButton: 'Переименовать',
+      manageChannelButton: 'Управление каналом',
+      addChannelButton: '+',
     },
     infoMessages: {
       loginError: 'Неверные имя пользователя или пароль',
@@ -54,10 +56,10 @@ export default {
       requiredFieldError: 'Обязательное поле',
       passwordsMustMatchError: 'Пароли должны совпадать',
       dataLoadError: 'Ошибка загрузки данных',
-      networkError: 'Ошибка сети',
+      networkError: 'Ошибка соединения',
       addedChannel: 'Канал создан',
       renamedChannel: 'Канал переименован',
-      removedChannel: 'Канал удален',
+      removedChannel: 'Канал удалён',
     },
   },
 };

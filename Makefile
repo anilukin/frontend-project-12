@@ -1,3 +1,8 @@
+.PHONY: install build start start-frontend start-backend develop
+
+install:
+	npm ci
+
 build:
 	rm -rf frontend/dist
 	npm run build
