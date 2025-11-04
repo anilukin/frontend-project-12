@@ -39,7 +39,7 @@ const Channel = ({
           className='flex-grow-0'
           split
         >
-          <span class='visually-hidden'>
+          <span className='visually-hidden'>
             {t('buttons.manageChannelButton')}
           </span>
         </Dropdown.Toggle>
