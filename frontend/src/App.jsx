@@ -42,17 +42,17 @@ const App = () => {
             {t('header.appName')}
           </Link>
           {token && username
-? (
-            <Button
-              className="btn btn-primary"
-              type="submit"
-              variant="btn-primary"
-              onClick={handleLogout}
-            >
-              {t('buttons.logoutButton')}
-            </Button>
-          )
-: null}
+            ? (
+              <Button
+                className="btn btn-primary"
+                type="submit"
+                variant="btn-primary"
+                onClick={handleLogout}
+              >
+                {t('buttons.logoutButton')}
+              </Button>
+            )
+            : null}
         </div>
       </nav>
       <Routes>

@@ -44,6 +44,7 @@ export default [
       '@stylistic/arrow-parens': ['error', 'as-needed'],
       '@stylistic/multiline-ternary': ['error', 'always-multiline'],
       '@stylistic/brace-style': ['error', '1tbs'],
+      '@stylistic/indent': ['error', 2],
       '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'single-child' }],
       '@stylistic/jsx-closing-tag-location': 'error',
       '@stylistic/object-curly-spacing': ['error', 'always'],
