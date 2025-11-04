@@ -22,12 +22,12 @@ const Channel = ({
   const { t } = useTranslation()
   return channel.removable
     ? (
-      <li className="nav-item w-100">
-        <Dropdown
-          as={ButtonGroup}
-          variant={channel.id === selectedChannelId ? 'secondary' : null}
-          className="d-flex"
-        >
+        <li className="nav-item w-100">
+          <Dropdown
+            as={ButtonGroup}
+            variant={channel.id === selectedChannelId ? 'secondary' : null}
+            className="d-flex"
+          >
           <ChannelButton
             channel={channel}
             selectedChannelId={selectedChannelId}
@@ -53,8 +53,8 @@ const Channel = ({
               {t('buttons.renameButton')}
             </Dropdown.Item>
           </Dropdown.Menu>
-        </Dropdown>
-      </li>
+          </Dropdown>
+        </li>
     )
     : (
       <ChannelButton

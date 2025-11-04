@@ -22,7 +22,7 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       setAuthFailed(false)
       try {
         const response = await axios.post(routes.loginPath(), values)

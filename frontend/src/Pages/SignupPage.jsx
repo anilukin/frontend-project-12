@@ -25,7 +25,7 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validationSchema: validationSchema(t),
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       setRegistrationFailed(false)
       try {
         const { username, password } = values
@@ -81,7 +81,7 @@ const SignupPage = () => {
                   <fieldset>
                     <Form.Group className="form-floating mb-3">
                       <Form.Control
-                        onChange={e => {
+                        onChange={(e) => {
                           setRegistrationFailed(false)
                           formik.handleChange(e)
                         }}
@@ -110,7 +110,7 @@ const SignupPage = () => {
                     <Form.Group className="form-floating mb-4">
                       <Form.Control
                         type="password"
-                        onChange={e => {
+                        onChange={(e) => {
                           setRegistrationFailed(false)
                           formik.handleChange(e)
                         }}
@@ -134,7 +134,7 @@ const SignupPage = () => {
                     <Form.Group className="form-floating mb-4">
                       <Form.Control
                         type="password"
-                        onChange={e => {
+                        onChange={(e) => {
                           setRegistrationFailed(false)
                           formik.handleChange(e)
                         }}

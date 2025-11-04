@@ -1,4 +1,4 @@
-.PHONY: install build start start-frontend start-backend develop
+.PHONY: install build start start-frontend start-backend develop lint
 
 install:
 	npm ci
@@ -6,6 +6,10 @@ install:
 build:
 	rm -rf frontend/dist
 	npm run build
+
+lint:
+	make -C frontend lint
+
 start-frontend:
 	make -C frontend start
 start-backend:

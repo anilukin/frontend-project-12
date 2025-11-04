@@ -19,7 +19,7 @@ const MessageForm = ({ channelId, username }) => {
     initialValues: {
       body: '',
     },
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       const newMessage = {
         body: filter.clean(values.body),
         channelId,

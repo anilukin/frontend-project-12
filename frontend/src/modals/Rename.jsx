@@ -31,7 +31,7 @@ const Rename = ({ show, onClose, onRename, channel }) => {
   const formik = useFormik({
     initialValues: { id: channel.id, name: channel.name },
     validationSchema: validationSchema(channelNames, t),
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       try {
         const editedChannel = { name: filter.clean(values.name.trim()) }
         const response = await axios.patch(

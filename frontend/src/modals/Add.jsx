@@ -31,7 +31,7 @@ const Add = ({ show, onClose, onAdd }) => {
   const formik = useFormik({
     initialValues: { id: '', name: '' },
     validationSchema: validationSchema(channelNames, t),
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       try {
         const newChannel = {
           name: filter.clean(values.name.trim()),

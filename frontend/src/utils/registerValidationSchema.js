@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-const validationSchema = t => {
+const validationSchema = (t) => {
   return Yup.object().shape({
     username: Yup.string()
       .transform(value => value.trim())

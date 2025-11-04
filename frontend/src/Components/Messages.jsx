@@ -21,7 +21,7 @@ const Messages = ({ selectedChannelId }) => {
   const username = useSelector(state => state.auth.username)
 
   useEffect(() => {
-    const handleNewMessage = message => {
+    const handleNewMessage = (message) => {
       dispatch(addMessage(message))
     }
     socket.on('newMessage', handleNewMessage)

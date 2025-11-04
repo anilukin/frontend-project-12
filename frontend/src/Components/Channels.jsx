@@ -19,13 +19,13 @@ const Channels = ({ selectedChannelId, handleClick }) => {
   const handleRemove = channel => setModal({ name: 'removing', channel })
   const handleClose = () => setModal({ name: null, channel: null })
 
-  const handleAddChannel = newChannel => {
+  const handleAddChannel = (newChannel) => {
     dispatcher(setChannels([...channels, newChannel]))
     handleClick(newChannel.id)
     handleClose()
   }
 
-  const handleRenameChannel = channel => {
+  const handleRenameChannel = (channel) => {
     const updatedChannels = channels.map(ch =>
       ch.id === channel.id ? { ...ch, name: channel.name } : ch,
     )
@@ -33,7 +33,7 @@ const Channels = ({ selectedChannelId, handleClick }) => {
     handleClose()
   }
 
-  const handleRemoveChannel = channel => {
+  const handleRemoveChannel = (channel) => {
     const updatedChannels = channels.filter(ch => ch.id !== channel.id)
     dispatcher(setChannels(updatedChannels))
     dispatcher(removeChannel(channel.id))

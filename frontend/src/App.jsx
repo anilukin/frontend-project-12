@@ -43,15 +43,15 @@ const App = () => {
           </Link>
           {token && username
             ? (
-              <Button
-                className="btn btn-primary"
-                type="submit"
-                variant="btn-primary"
-                onClick={handleLogout}
-              >
-                {t('buttons.logoutButton')}
-              </Button>
-            )
+                <Button
+                  className="btn btn-primary"
+                  type="submit"
+                  variant="btn-primary"
+                  onClick={handleLogout}
+                >
+                  {t('buttons.logoutButton')}
+                </Button>
+              )
             : null}
         </div>
       </nav>
