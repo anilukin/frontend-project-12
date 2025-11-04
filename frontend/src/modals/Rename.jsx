@@ -24,14 +24,14 @@ const Rename = ({ show, onClose, onRename, channel }) => {
     filter.add(filter.getDictionary('ru'))
   }, [])
 
-  const channelNames = useSelector((state) => state.channels.channels).map(
-    (ch) => ch.name.trim()
+  const channelNames = useSelector(state => state.channels.channels).map(
+    ch => ch.name.trim(),
   )
 
   const formik = useFormik({
     initialValues: { id: channel.id, name: channel.name },
     validationSchema: validationSchema(channelNames, t),
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       try {
         const editedChannel = { name: filter.clean(values.name.trim()) }
         const response = await axios.patch(
@@ -39,7 +39,7 @@ const Rename = ({ show, onClose, onRename, channel }) => {
           editedChannel,
           {
             headers: getAuthHeader(),
-          }
+          },
         )
         onRename(response.data)
         notify(t('infoMessages.renamedChannel'))
@@ -60,30 +60,30 @@ const Rename = ({ show, onClose, onRename, channel }) => {
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          <FormGroup className='form-group mb-2'>
+          <FormGroup className="form-group mb-2">
             <FormControl
-              name='name'
-              id='name'
+              name="name"
+              id="name"
               required
               ref={inputRef}
               value={formik.values.name}
               onChange={formik.handleChange}
               isInvalid={formik.touched.name && !!formik.errors.name}
             />
-            <FormLabel className='visually-hidden' htmlFor='name'>
+            <FormLabel className="visually-hidden" htmlFor="name">
               {t('channels.channelName')}
             </FormLabel>
             {formik.touched.name && formik.errors.name && (
-              <div className='invalid-feedback'>{formik.errors.name}</div>
+              <div className="invalid-feedback">{formik.errors.name}</div>
             )}
           </FormGroup>
-          <div className='d-flex justify-content-end'>
-            <Button variant='secondary' className='me-2' onClick={onClose}>
+          <div className="d-flex justify-content-end">
+            <Button variant="secondary" className="me-2" onClick={onClose}>
               {t('buttons.resetButton')}
             </Button>
             <Button
-              variant='primary'
-              type='submit'
+              variant="primary"
+              type="submit"
               disabled={formik.isSubmitting}
             >
               {t('buttons.sendButton')}

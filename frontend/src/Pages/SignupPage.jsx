@@ -25,7 +25,7 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validationSchema: validationSchema(t),
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       setRegistrationFailed(false)
       try {
         const { username, password } = values
@@ -39,7 +39,7 @@ const SignupPage = () => {
             setCredentials({
               username,
               token,
-            })
+            }),
           )
           localStorage.setItem('token', token)
           localStorage.setItem('username', username)
@@ -60,107 +60,107 @@ const SignupPage = () => {
     },
   })
   return (
-    <div className='d-flex flex-column h-100'>
-      <div className='container-fluid h-100'>
-        <div className='row justify-content-center align-content-center h-100'>
-          <div className='col-12 col-md-8 col-xxl-6'>
-            <div className='card shadow-sm'>
-              <div className='card-body row p-5'>
-                <div className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
+    <div className="d-flex flex-column h-100">
+      <div className="container-fluid h-100">
+        <div className="row justify-content-center align-content-center h-100">
+          <div className="col-12 col-md-8 col-xxl-6">
+            <div className="card shadow-sm">
+              <div className="card-body row p-5">
+                <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                   <img
-                    src='/avatar_1.jpg'
-                    className='rounded-circle'
+                    src="/avatar_1.jpg"
+                    className="rounded-circle"
                     alt={t('signupPage.signupPageTitle')}
                   />
                 </div>
                 <Form
                   onSubmit={formik.handleSubmit}
-                  className='col-12 col-md-6 mt-3 mt-md-0'
+                  className="col-12 col-md-6 mt-3 mt-md-0"
                 >
-                  <h1 className='text-center mb-4'>{t('signupPage.signupPageTitle')}</h1>
+                  <h1 className="text-center mb-4">{t('signupPage.signupPageTitle')}</h1>
                   <fieldset>
-                    <Form.Group className='form-floating mb-3'>
+                    <Form.Group className="form-floating mb-3">
                       <Form.Control
-                        onChange={(e) => {
+                        onChange={e => {
                           setRegistrationFailed(false)
                           formik.handleChange(e)
                         }}
                         value={formik.values.username}
-                        placeholder='username'
-                        name='username'
-                        id='username'
-                        autoComplete='username'
+                        placeholder="username"
+                        name="username"
+                        id="username"
+                        autoComplete="username"
                         isInvalid={
-                          (formik.touched.username &&
-                            !!formik.errors.username) ||
-                          registrationFailed
+                          (formik.touched.username
+                            && !!formik.errors.username)
+                          || registrationFailed
                         }
                         required
                         ref={inputRef}
                       />
-                      <Form.Label htmlFor='username'>
+                      <Form.Label htmlFor="username">
                         {t('signupPage.newUserName')}
                       </Form.Label>
-                      <Form.Control.Feedback type='invalid'>
-                        {formik.errors.username ||
-                          (registrationFailed &&
-                            t('infoMessages.userExistError'))}
+                      <Form.Control.Feedback type="invalid">
+                        {formik.errors.username
+                          || (registrationFailed
+                            && t('infoMessages.userExistError'))}
                       </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group className='form-floating mb-4'>
+                    <Form.Group className="form-floating mb-4">
                       <Form.Control
-                        type='password'
-                        onChange={(e) => {
+                        type="password"
+                        onChange={e => {
                           setRegistrationFailed(false)
                           formik.handleChange(e)
                         }}
                         value={formik.values.password}
-                        placeholder='password'
-                        name='password'
-                        id='password'
-                        autoComplete='current-password'
+                        placeholder="password"
+                        name="password"
+                        id="password"
+                        autoComplete="current-password"
                         isInvalid={
-                          (formik.touched.password &&
-                            !!formik.errors.password) ||
-                          registrationFailed
+                          (formik.touched.password
+                            && !!formik.errors.password)
+                          || registrationFailed
                         }
                         required
                       />
-                      <Form.Label htmlFor='password'>{t('signupPage.newUserPassword')}</Form.Label>
-                      <Form.Control.Feedback type='invalid'>
+                      <Form.Label htmlFor="password">{t('signupPage.newUserPassword')}</Form.Label>
+                      <Form.Control.Feedback type="invalid">
                         {formik.errors.password}
                       </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group className='form-floating mb-4'>
+                    <Form.Group className="form-floating mb-4">
                       <Form.Control
-                        type='password'
-                        onChange={(e) => {
+                        type="password"
+                        onChange={e => {
                           setRegistrationFailed(false)
                           formik.handleChange(e)
                         }}
                         value={formik.values.confirmPassword}
-                        placeholder='confirmPassword'
-                        name='confirmPassword'
-                        id='confirmPassword'
-                        autoComplete='current-password'
+                        placeholder="confirmPassword"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        autoComplete="current-password"
                         isInvalid={
-                          (formik.touched.confirmPassword &&
-                            !!formik.errors.confirmPassword) ||
-                          registrationFailed
+                          (formik.touched.confirmPassword
+                            && !!formik.errors.confirmPassword)
+                          || registrationFailed
                         }
                         required
                       />
-                      <Form.Label htmlFor='confirmPassword'>
+                      <Form.Label htmlFor="confirmPassword">
                         {t('signupPage.confirmNewUserPassword')}
                       </Form.Label>
-                      <Form.Control.Feedback type='invalid'>
+                      <Form.Control.Feedback type="invalid">
                         {formik.errors.confirmPassword}
                       </Form.Control.Feedback>
                     </Form.Group>
                     <Button
-                      className='w-100 mb-3 btn btn-outline-primary'
-                      type='submit'
-                      variant='outline-primary'
+                      className="w-100 mb-3 btn btn-outline-primary"
+                      type="submit"
+                      variant="outline-primary"
                     >
                       {t('buttons.registrationButton')}
                     </Button>

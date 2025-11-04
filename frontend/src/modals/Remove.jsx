@@ -34,12 +34,12 @@ const Remove = ({ show, onClose, onRemove, channel }) => {
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          <p className='lead'>{t('channels.confirmationModalDescription')}</p>
-          <div className='d-flex justify-content-end'>
-            <Button variant='secondary' className='me-2' onClick={onClose}>
+          <p className="lead">{t('channels.confirmationModalDescription')}</p>
+          <div className="d-flex justify-content-end">
+            <Button variant="secondary" className="me-2" onClick={onClose}>
               {t('buttons.resetButton')}
             </Button>
-            <Button variant='danger' type='submit'>
+            <Button variant="danger" type="submit">
               {t('buttons.removeButton')}
             </Button>
           </div>

@@ -19,11 +19,11 @@ const sliceChannels = createSlice({
       messagesSliceAdapter.addOne(state, payload)
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(removeChannel, (state, action) => {
       const channelId = action.payload
       const restEntities = Object.values(state.entities).filter(
-        (e) => e.channelId !== channelId
+        e => e.channelId !== channelId,
       )
       messagesSliceAdapter.setAll(state, restEntities)
     })
@@ -31,12 +31,12 @@ const sliceChannels = createSlice({
 })
 
 export const selectChannelMessages = createSelector(
-  [(state) => state.messages, (state, channelId) => channelId],
+  [state => state.messages, (state, channelId) => channelId],
   (messagesState, channelId) =>
     messagesSliceAdapter
       .getSelectors()
       .selectAll(messagesState)
-      .filter((msg) => msg.channelId === channelId)
+      .filter(msg => msg.channelId === channelId),
 )
 
 export const { setMessages, addMessage } = sliceChannels.actions

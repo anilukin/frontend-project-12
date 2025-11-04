@@ -10,18 +10,18 @@ import { selectChannelMessages } from '../Slices/messagesSlice'
 const Messages = ({ selectedChannelId }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const currentChannel = useSelector((state) =>
-    state.channels.channels.find((ch) => ch.id === selectedChannelId)
+  const currentChannel = useSelector(state =>
+    state.channels.channels.find(ch => ch.id === selectedChannelId),
   )
 
-  const channelMessages = useSelector((state) =>
-    selectChannelMessages(state, selectedChannelId)
+  const channelMessages = useSelector(state =>
+    selectChannelMessages(state, selectedChannelId),
   )
 
-  const username = useSelector((state) => state.auth.username)
+  const username = useSelector(state => state.auth.username)
 
   useEffect(() => {
-    const handleNewMessage = (message) => {
+    const handleNewMessage = message => {
       dispatch(addMessage(message))
     }
     socket.on('newMessage', handleNewMessage)
@@ -32,22 +32,22 @@ const Messages = ({ selectedChannelId }) => {
   }, [dispatch])
 
   return (
-    <div className='col p-0 h-100'>
-      <div className='d-flex flex-column h-100'>
-        <div className='bg-light mb-4 p-3 shadow-sm small'>
-          <p className='m-0'>
+    <div className="col p-0 h-100">
+      <div className="d-flex flex-column h-100">
+        <div className="bg-light mb-4 p-3 shadow-sm small">
+          <p className="m-0">
             {currentChannel && <b>{`# ${currentChannel.name}`}</b>}
           </p>
-          <span className='text-muted'>
+          <span className="text-muted">
             {t('messages.message', { count: channelMessages.length })}
           </span>
         </div>
-        <div className='chat-messages overflow-auto px-5'>
-          {channelMessages.map((message) => (
+        <div className="chat-messages overflow-auto px-5">
+          {channelMessages.map(message => (
             <Message key={message.id} message={message} />
           ))}
         </div>
-        <div className='mt-auto px-5 py-3'>
+        <div className="mt-auto px-5 py-3">
           <MessageForm channelId={selectedChannelId} username={username} />
         </div>
       </div>

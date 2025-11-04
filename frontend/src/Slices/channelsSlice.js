@@ -10,9 +10,9 @@ const sliceChannels = createSlice({
     setChannels: (state, { payload }) => {
       state.channels = payload
     },
-    removeChannel: (state, {payload}) => {
-      state.channels = state.channels.filter((ch) => ch.id !== payload )
-    }
+    removeChannel: (state, { payload }) => {
+      state.channels = state.channels.filter(ch => ch.id !== payload)
+    },
   },
 })
 

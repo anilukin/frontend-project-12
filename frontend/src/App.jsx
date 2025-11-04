@@ -22,7 +22,7 @@ const App = () => {
     const storedUsername = localStorage.getItem('username')
     if (storedToken && storedUsername) {
       dispatch(
-        setCredentials({ username: storedUsername, token: storedToken })
+        setCredentials({ username: storedUsername, token: storedToken }),
       )
     }
   }, [dispatch])
@@ -35,29 +35,31 @@ const App = () => {
   }
 
   return (
-    <div className='d-flex flex-column h-100'>
-      <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
-        <div className='container'>
-          <Link to='/' className='navbar-brand'>
+    <div className="d-flex flex-column h-100">
+      <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+        <div className="container">
+          <Link to="/" className="navbar-brand">
             {t('header.appName')}
           </Link>
-          {token && username ? (
+          {token && username
+? (
             <Button
-              className='btn btn-primary'
-              type='submit'
-              variant='btn-primary'
+              className="btn btn-primary"
+              type="submit"
+              variant="btn-primary"
               onClick={handleLogout}
             >
               {t('buttons.logoutButton')}
             </Button>
-          ) : null}
+          )
+: null}
         </div>
       </nav>
       <Routes>
         <Route index element={<MainPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='*' element={<NotFoundPage />} />
-        <Route path='/signup' element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
       <ToastContainer />
     </div>
