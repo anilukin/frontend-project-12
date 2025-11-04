@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { setCredentials } from '../Slices/authSlice';
+import routes from '../utils/routes';
 
 const LoginPage = () => {
   const dispatcher = useDispatch();
@@ -24,7 +25,7 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
-        const response = await axios.post('/api/v1/login', values);
+        const response = await axios.post(routes.loginPath(), values);
         if (response.status === 200) {
           const { username, token } = response.data;
           dispatcher(

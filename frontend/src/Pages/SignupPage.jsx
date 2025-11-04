@@ -7,6 +7,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { setCredentials } from '../Slices/authSlice';
 import validationSchema from '../utils/registerValidationSchema';
+import routes from '../utils/routes';
 
 const SignupPage = () => {
   const dispatcher = useDispatch();
@@ -28,7 +29,7 @@ const SignupPage = () => {
       setRegistrationFailed(false);
       try {
         const { username, password } = values;
-        const response = await axios.post('/api/v1/signup', {
+        const response = await axios.post(routes.signupPath(), {
           username,
           password,
         });

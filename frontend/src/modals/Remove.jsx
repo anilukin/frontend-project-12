@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 import { notify } from '../utils/notify';
 import { getAuthHeader } from '../utils/getAuthHeader';
+import routes from '../utils/routes';
 
 const Remove = ({ show, onClose, onRemove, channel }) => {
   const { t } = useTranslation();
@@ -11,7 +12,7 @@ const Remove = ({ show, onClose, onRemove, channel }) => {
     initialValues: { id: channel.id, name: channel.name },
     onSubmit: async () => {
       try {
-        const response = await axios.delete(`/api/v1/channels/${channel.id}`, {
+        const response = await axios.delete(routes.channelPath(channel.id), {
           headers: getAuthHeader(),
         });
         onRemove(response.data);

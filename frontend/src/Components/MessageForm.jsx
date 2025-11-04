@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
 import * as filter from 'leo-profanity';
 import { getAuthHeader } from '../utils/getAuthHeader';
+import routes from '../utils/routes';
 
 const MessageForm = ({ channelId, username }) => {
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ const MessageForm = ({ channelId, username }) => {
         channelId,
         username,
       };
-      await axios.post('/api/v1/messages', newMessage, {
+      await axios.post(routes.messagesPath(), newMessage, {
         headers: getAuthHeader(),
       });
       formik.resetForm();

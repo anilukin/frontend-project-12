@@ -14,6 +14,7 @@ import * as filter from 'leo-profanity';
 import { notify } from '../utils/notify';
 import validationSchema from '../utils/channelValidationSchema';
 import { getAuthHeader } from '../utils/getAuthHeader';
+import routes from '../utils/routes';
 
 const Rename = ({ show, onClose, onRename, channel }) => {
   const { t } = useTranslation();
@@ -34,7 +35,7 @@ const Rename = ({ show, onClose, onRename, channel }) => {
       try {
         const editedChannel = { name: filter.clean(values.name.trim()) };
         const response = await axios.patch(
-          `/api/v1/channels/${channel.id}`,
+          routes.channelPath(channel.id),
           editedChannel,
           {
             headers: getAuthHeader(),

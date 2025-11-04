@@ -14,6 +14,7 @@ import * as filter from 'leo-profanity';
 import { notify } from '../utils/notify';
 import validationSchema from '../utils/channelValidationSchema';
 import { getAuthHeader } from '../utils/getAuthHeader';
+import routes from '../utils/routes';
 
 const Add = ({ show, onClose, onAdd }) => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const Add = ({ show, onClose, onAdd }) => {
         const newChannel = {
           name: filter.clean(values.name.trim()),
         };
-        const response = await axios.post('/api/v1/channels', newChannel, {
+        const response = await axios.post(routes.channelsPath(), newChannel, {
           headers: getAuthHeader(),
         });
         onAdd(response.data);

@@ -9,6 +9,7 @@ import { setMessages } from '../Slices/messagesSlice';
 import Channels from '../Components/Channels';
 import Messages from '../Components/Messages';
 import { getAuthHeader } from '../utils/getAuthHeader';
+import routes from '../utils/routes';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -20,14 +21,14 @@ const MainPage = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const responseChannels = await axios.get('/api/v1/channels', {
+        const responseChannels = await axios.get(routes.channelsPath(), {
           headers: getAuthHeader(),
         });
         const channels = responseChannels.data;
         dispatcher(setChannels(channels));
         setChannel(channels[0].id);
 
-        const responseMessages = await axios.get('/api/v1/messages', {
+        const responseMessages = await axios.get(routes.messagesPath(), {
           headers: getAuthHeader(),
         });
         const messages = responseMessages.data;
@@ -52,7 +53,7 @@ const MainPage = () => {
     } else {
       fetchContent();
     }
-  }, [navigate]);
+  }, [navigate, dispatcher, t]);
 
   if (error) {
     return <div className='alert alert-danger'>{error}</div>;
