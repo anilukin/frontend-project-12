@@ -1,4 +1,5 @@
 {
+  "name": "@hexlet/code",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4",
     "@reduxjs/toolkit": "^2.8.2",
