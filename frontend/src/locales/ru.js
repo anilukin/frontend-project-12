@@ -35,6 +35,7 @@ export default {
       message_few: '{{count}} сообщения',
       message_many: '{{count}} сообщений',
       inputPlaceholder: 'Введите сообщение...',
+      newMessage: 'Новое сообщение',
     },
     buttons: {
       loginButton: 'Войти',

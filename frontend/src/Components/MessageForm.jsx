@@ -39,6 +39,7 @@ const MessageForm = ({ channelId, username }) => {
           className='border-0 p-0 ps-2 form-control'
           onChange={formik.handleChange}
           value={formik.values.body}
+          aria-label={t('messages.newMessage')}
           placeholder={t('messages.inputPlaceholder')}
           name='body'
           id='body'
