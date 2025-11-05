@@ -55,14 +55,14 @@ const Channel = ({
             </Dropdown.Menu>
           </Dropdown>
         </li>
-    )
+      )
     : (
         <ChannelButton
           channel={channel}
           selectedChannelId={selectedChannelId}
           handleClick={handleClick}
         />
-    )
+      )
 }
 
 export default Channel

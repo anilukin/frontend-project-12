@@ -44,7 +44,9 @@ export default [
       '@stylistic/arrow-parens': ['error', 'as-needed', { requireForBlockBody: true }],
       '@stylistic/multiline-ternary': ['error', 'always-multiline'],
       '@stylistic/brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
-      '@stylistic/indent': ['error', 2, { ignoredNodes: ['JSXElement', 'JSXElement *'] }],
+      '@stylistic/indent': ['error', 2, {
+        ignoredNodes: ['JSXElement', 'JSXElement *', 'ConditionalExpression'],
+      }],
       '@stylistic/jsx-indent-props': ['error', 2],
       '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'single-child' }],
       '@stylistic/jsx-closing-tag-location': 'error',
