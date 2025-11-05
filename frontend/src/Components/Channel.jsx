@@ -57,11 +57,11 @@ const Channel = ({
         </li>
     )
     : (
-      <ChannelButton
-        channel={channel}
-        selectedChannelId={selectedChannelId}
-        handleClick={handleClick}
-      />
+        <ChannelButton
+          channel={channel}
+          selectedChannelId={selectedChannelId}
+          handleClick={handleClick}
+        />
     )
 }
 
